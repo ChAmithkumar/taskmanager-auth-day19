@@ -31,6 +31,10 @@ app.post("/signup", async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
+        if (!name || !email || !password) {
+            return res.status(400).json({ msg: "All fields required" });
+        }
+
         const exist = await User.findOne({ email });
         if (exist) return res.status(400).json({ msg: "Email exists" });
 
@@ -40,8 +44,11 @@ app.post("/signup", async (req, res) => {
         await user.save();
 
         res.json({ msg: "Signup successful" });
+
     } catch (err) {
+        console.log(err);
         res.status(500).json({ error: err.message });
+        console.log(req.body);
     }
 });
 
