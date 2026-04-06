@@ -61,7 +61,10 @@ function signup() {
         password: spass.value
     })
     .then(() => alert("Signup success"))
-    .catch(err => alert(err.response?.data?.msg || "Error"));
+    .catch(err => {
+        console.error(err);
+        alert(err.response?.data?.msg || "Signup failed");
+    });
 }
 
 // LOGIN
