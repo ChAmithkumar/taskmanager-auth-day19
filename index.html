@@ -3,131 +3,119 @@
 <head>
     <title>Task Manager</title>
     <style>
-        body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+   body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #00d5ff);
     margin: 0;
     padding: 0;
-    color: #333;
+    color: white;
 }
 
-/* Container */
-body > * {
-    max-width: 800px;
+/* MAIN CONTAINER */
+.container {
+    max-width: 900px;
     margin: auto;
+    padding: 20px;
 }
 
-/* Card Layout */
-h1, h3, input, select, button, ul {
-    margin-top: 15px;
+/* GLASS CARD */
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
+/* TITLE */
 h1 {
     text-align: center;
-    color: white;
-    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
-/* Sections */
-h3 {
-    color: #444;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
+/* ROW LAYOUT */
+.row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-/* Inputs */
+/* INPUTS */
 input, select {
+    flex: 1;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-    margin: 5px;
-    transition: 0.3s;
-}
-
-input:focus, select:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 5px #667eea;
-}
-
-/* Buttons */
-button {
-    padding: 8px 14px;
     border: none;
+    outline: none;
+}
+
+/* BUTTONS */
+button {
+    padding: 10px 15px;
     border-radius: 8px;
-    background: #667eea;
-    color: white;
+    border: none;
     cursor: pointer;
+    background: #4facfe;
+    color: white;
     transition: 0.3s;
 }
 
 button:hover {
-    background: #5a67d8;
     transform: scale(1.05);
+    background: #00c6ff;
 }
 
-/* Logout Button */
-button:nth-of-type(2) {
-    background: #e53e3e;
+/* LOGOUT */
+.logout {
+    background: #ff4b5c;
 }
 
-button:nth-of-type(2):hover {
-    background: #c53030;
-}
-
-/* Task List */
+/* TASK LIST */
 ul {
     list-style: none;
     padding: 0;
 }
 
 li {
-    background: white;
+    background: rgba(24, 49, 59, 0.822);
     margin: 10px 0;
     padding: 12px;
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    animation: fadeIn 0.4s ease;
 }
 
-/* Completed Task */
+/* ANIMATION */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* COMPLETED */
 .completed {
     text-decoration: line-through;
-    color: gray;
+    opacity: 0.6;
 }
 
-/* Priority Badges */
+/* PRIORITY BADGES */
 .priority {
-    padding: 3px 10px;
+    padding: 4px 10px;
     border-radius: 20px;
-    color: white;
     font-size: 12px;
     margin-left: 10px;
 }
 
-.high {
-    background: #e53e3e;
-}
+.high { background: #ff4b5c; }
+.medium { background: #ffa502; }
+.low { background: #2ed573; }
 
-.medium {
-    background: #dd6b20;
-}
-
-.low {
-    background: #38a169;
-}
-
-/* Task Buttons */
-li button {
-    margin-left: 5px;
-    font-size: 12px;
-}
-
-/* Search Box */
+/* SEARCH */
 #search {
-    width: 95%;
+    width: 100%;
+    margin-top: 10px;
 }
 
 /* Responsive */
@@ -145,48 +133,57 @@ li button {
 </head>
 <body>
 
+<div class="container">
+
 <h1>🚀 Task Manager</h1>
 
-<!-- SIGNUP -->
+<div class="card">
 <h3>Signup</h3>
+<div class="row">
 <input id="sname" placeholder="Name">
 <input id="semail" placeholder="Email">
 <input id="spass" type="password" placeholder="Password">
 <button onclick="signup()">Signup</button>
+</div>
+</div>
 
-<hr>
-
-<!-- LOGIN -->
+<div class="card">
 <h3>Login</h3>
+<div class="row">
 <input id="lemail" placeholder="Email">
 <input id="lpass" type="password" placeholder="Password">
 <button onclick="login()">Login</button>
-<button onclick="logout()">Logout</button>
+<button class="logout" onclick="logout()">Logout</button>
+</div>
+</div>
 
-<hr>
-
-<!-- TASK INPUT -->
+<div class="card">
+<div class="row">
 <input id="taskInput" placeholder="New Task">
 
 <select id="category">
-    <option>Work</option>
-    <option>Personal</option>
-    <option>Urgent</option>
+<option>Work</option>
+<option>Personal</option>
+<option>Urgent</option>
 </select>
 
 <input type="date" id="dueDate">
 
 <select id="priority">
-    <option>High</option>
-    <option>Medium</option>
-    <option>Low</option>
+<option value="High">High</option>
+<option value="Medium">Medium</option>
+<option value="Low">Low</option>
 </select>
 
-<button onclick="addTask()">Add Task</button>
+<button onclick="addTask()">Add</button>
+</div>
 
 <input id="search" placeholder="Search..." onkeyup="searchTask()">
+</div>
 
 <ul id="taskList"></ul>
+
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
