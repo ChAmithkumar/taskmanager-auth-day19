@@ -133,7 +133,9 @@ function addTask() {
 
     axios.post(API + "/tasks", {
         title: taskInput.value,
-        category: category.value
+        category: category.value,
+        priority: priority.value,
+        dueDate: dueDate.value
     }, {
         headers: {
             Authorization: "Bearer " + localStorage.getItem("token")
